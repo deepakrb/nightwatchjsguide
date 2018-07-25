@@ -184,7 +184,7 @@ pages/home.js
 }
 ```
 
-## Commands
+## Commands 
 
 ### Rule 7: Favour using generic commands
 
