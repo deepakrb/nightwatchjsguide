@@ -2,6 +2,19 @@
 
 NightwatchJS can be used to run User Acceptance tests which guarantee that certain features run as we expect them. This best practices guide is an opinionated set of rules on how best to write those tests.
 
+# Table of Contents
+   * [NightwatchJS Best Practices](#nightwatchjs-best-practices)
+      * [Tests](#tests)
+         * [Rule 1: Make Tests Transactional](#rule-1-make-tests-transactional)
+         * [Rule 2: Split up a large non-dependent test suites into multiple smaller test suites](#rule-2-split-up-a-large-non-dependent-test-suites-into-multiple-smaller-test-suites)
+      * [Pages](#pages)
+         * [Rule 3: Use waitForPage after calls to navigate](#rule-3-use-waitforpage-after-calls-to-navigate)
+         * [Rule 4: Break up complex page elements into sections where possible](#rule-4-break-up-complex-page-elements-into-sections-where-possible)
+         * [Rule 5: Return this in most cases](#rule-5-return-this-in-most-cases)
+         * [Rule 6: Always return a useCss browser](#rule-6-always-return-a-usecss-browser)
+      * [Commands](#commands)
+         * [Rule 7: Favour using generic commands](#rule-7-favour-using-generic-commands)
+
 ## Tests
 
 ### Rule 1: Make Tests Transactional
