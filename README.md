@@ -191,7 +191,8 @@ pages/home.js
 Generic commands allow for bits of code which are executed all across the test suite to be reused. When it comes to components that get used in many pages (like alerts or modals) it is helpful to use commands to limit the amount of duplicate commands we have across pages.
 
 ```javascript
-pages/home.js
+// pages/home.js
+
 const { homeSection } = browser.page.home().section;
  
 homeSection
