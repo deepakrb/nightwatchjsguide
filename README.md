@@ -1,6 +1,6 @@
 # NightwatchJS Best Practices
 
-NightwatchJS can be used to run User Acceptance tests which guarantee that certain features run as we expect them. This best practices guide details how we write those tests. It is written as a list of rules.
+NightwatchJS can be used to run User Acceptance tests which guarantee that certain features run as we expect them. This best practices guide is an opinionated set of rules on how best to write those tests.
 
 ## Tests
 
