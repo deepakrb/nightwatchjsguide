@@ -105,3 +105,42 @@ home
     .waitForPage();
 
 ```
+
+### Rule 5: Break up complex page elements into sections where possible
+
+Single page apps are often subject to large and complicated `page` files. Sections should be used to represent parts of a page. This provides an additional level of namespacing vs storing all commands and selectors at the top page level. 
+
+They help break up complex page files into small chunks. 
+
+```javascript
+// pages/home.js
+
+{
+    props: {
+        email: "example@example.com",
+        password: "example"
+    },
+    sections: {
+        hero: {
+            selector: "#hero",
+            elements: {
+                "signUpButton": "#signUpButton"
+            }
+            commands: [
+                {
+                    clickSignUp: function() {
+                        this
+                            .waitForSelector("@signUpButton", 5000)
+                            .click("@signUpButton")
+ 
+                        return this;
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
+In this case the selector `.signUpButton` is the equivalent of `#hero .signUpButton`
+
