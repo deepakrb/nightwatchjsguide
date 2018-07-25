@@ -106,7 +106,7 @@ home
 
 ```
 
-### Rule 5: Break up complex page elements into sections where possible
+### Rule 4: Break up complex page elements into sections where possible
 
 Single page apps are often subject to large and complicated `page` files. Sections should be used to represent parts of a page. This provides an additional level of namespacing vs storing all commands and selectors at the top page level. 
 
@@ -143,4 +143,60 @@ They help break up complex page files into small chunks.
 ```
 
 In this case the selector `.signUpButton` is the equivalent of `#hero .signUpButton`
+
+### Rule 5: Return this in most cases
+Return this from all commands that do not need a return statement. This allows you to chain commands predictably
+
+```javascript
+// pages/home.js
+
+commands: [
+    {
+        waitForPage: function() {
+            this.openModal()
+                .waitForElementVisible("@homePageIdentifier", 5000)
+ 
+            return this;
+    }
+]
+```
+
+### Rule 6: Always return a useCss browser
+
+When returning this from a command revert the browser to useCss instead of xPath so commands which are chained function predictably.
+
+```javascript
+pages/home.js
+{
+    commands: [
+        {
+            findAndClickElementWithName(text) {
+                this.api
+                    .useXpath()
+                    .waitForSelector(`//text()[contains(.,'${text}')][1]/ancestor::tr`, 5000)
+                    .click(`//text()[contains(.,'${text}')][1]/ancestor::tr`)
+                    .useCss()
+                 
+                return this;
+            }
+        }
+    ]
+}
+```
+
+## Commands
+
+### Rule 7: Favour using generic commands
+
+Generic commands allow for bits of code which are executed all across the test suite to be reused. When it comes to components that get used in many pages (like alerts or modals) it is helpful to use commands to limit the amount of duplicate commands we have across pages.
+
+```javascript
+pages/home.js
+const { homeSection } = browser.page.home().section;
+ 
+homeSection
+    .waitForElementVisible("@homeShare", 5000)
+    .click(@homeShare)
+    .acceptModal(); // Accept modal is a globally available command  (-test/nightwatch/command/acceptModal.js)
+```
 
