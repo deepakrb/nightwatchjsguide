@@ -58,3 +58,50 @@ social_share.js
 ```
 
 In this case we could guarantee that these test cases (regardless of the overall user story they were in) could operate indepdendantly of eachtoher. The benefit of splitting these tests is that we now  guarnatee that `Navigate to Social Page` (which represents the first test case in the `social_share.js` page) will be started. As a plus both tests could even potentially be run in parallel.
+
+## Pages 
+
+Pages are an abstraction that helps group bits of code that help tests interact with webpages in a reusable and predictable manner.
+
+### Rule 3: Use waitForPage after calls to navigate
+
+It's common practice to call waitForElementPresent after a page's navigate command. 
+
+```javascript
+// tests/home.js
+
+const homePage = browser.page.home();
+ 
+home
+    .navigate()
+    .waitForElement(@homePageIndentifier, 5000);
+
+```
+
+Because waiting for a page to load is tied to 'navigation completing' you should create the command `waitForPage` command which always proceeds a call to `navigate`.
+
+```javascript
+// pages/home.js
+
+commands: [
+    {
+        waitForPage: function() {
+            this.waitForElementVisible("@homePageIdentifier", 5000)
+  
+            return this;
+    }
+]
+```
+
+This allows you to keep remove page specific selectors from your test file and into the page where they are more likely to be seen and changed with the pages schema.
+
+```javascript
+// tests/home.js
+
+const homePage = browser.page.home();
+ 
+home
+    .navigate()
+    .waitForPage();
+
+```
